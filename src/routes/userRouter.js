@@ -5,8 +5,10 @@ const { validateRegisterFields } = require('../middlewares/validateUser');
 
 const router = express.Router();
 
-router.post('/', /* validateJWT, */ validateRegisterFields, userController.userRegister);
+router.post('/', validateRegisterFields, userController.userRegister);
 
 router.get('/', validateJWT, userController.getAllUsers);
+
+router.get('/:id', validateJWT, userController.getUserById);
 
 module.exports = router;

@@ -8,7 +8,6 @@ const validateJWT = (req, res, next) => {
   }
 
   const decoded = decodeToken(token);
-  console.log('CONSOLELOG AQUIIII!!!', decoded);
 
   if (decoded.status) {
     return res.status(decoded.status).json({ message: decoded.message });
