@@ -38,7 +38,19 @@ const userLogin = async (data) => {
   };
 };
 
+const getAllUsers = async () => {
+  const allUsers = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  
+  return {
+    status: 200,
+    message: allUsers,
+  };
+};
+
 module.exports = {
   userLogin,
   userRegister,
+  getAllUsers,
 };

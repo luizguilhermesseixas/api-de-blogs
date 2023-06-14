@@ -9,10 +9,18 @@ const jwtConfig = {
 
 const createToken = (payload) => jwt.sign(payload, TOKEN_SECRET, jwtConfig);
 
-/* const decodeToken = (token) =>
-  jwt.verify(token, TOKEN_SECRET); */
+const decodeToken = (token) => {
+  try {
+    return jwt.verify(token, TOKEN_SECRET);
+  } catch (err) {
+    return {
+      status: 401,
+      message: 'Expired or invalid token',
+    };
+  }
+};
 
 module.exports = {
   createToken,
-/*   decodeToken, */
+  decodeToken,
 };

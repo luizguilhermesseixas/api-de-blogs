@@ -1,4 +1,4 @@
-/* const { decodeToken } = require('../utils/JWT'); */
+const { decodeToken } = require('../utils/JWT');
 
 const validateJWT = (req, res, next) => {
   const { authorization: token } = req.headers;
@@ -7,7 +7,12 @@ const validateJWT = (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  console.log(req);
+  const decoded = decodeToken(token);
+  console.log('CONSOLELOG AQUIIII!!!', decoded);
+
+  if (decoded.status) {
+    return res.status(decoded.status).json({ message: decoded.message });
+  }
 
   return next();
 };

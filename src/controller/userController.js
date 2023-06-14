@@ -13,7 +13,13 @@ const userRegister = async (req, res) => {
   return res.status(status).json(message);
 };
 
+const getAllUsers = async (req, res) => {
+const { status, message } = await userService.getAllUsers();
+return res.status(status).json(message);
+};
+
 module.exports = {
   userLogin,
   userRegister,
+  getAllUsers,
 };
