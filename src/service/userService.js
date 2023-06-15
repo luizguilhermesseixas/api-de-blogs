@@ -1,9 +1,10 @@
 const { User } = require('../models');
 const { createToken } = require('../utils/JWT');
 
-const generateToken = (email) => {
+const generateToken = (email, id) => {
   const payload = {
     email,
+    id,
   };
   const createdToken = createToken(payload);
   return createdToken;
@@ -14,8 +15,8 @@ const userRegister = async (data) => {
   if (checkUser) {
     return ({ status: 409, message: { message: 'User already registered' } });
   }
-  await User.create(data);
-  const token = generateToken(data.email);
+  const { dataValues } = await User.create(data);
+  const token = generateToken(data.email, dataValues.id);
   return ({ status: 201, message: { token } });
 };
 
@@ -29,7 +30,7 @@ const userLogin = async (data) => {
       },
     };
   }
-  const token = generateToken(data.email);
+  const token = generateToken(data.email, verifyLogin.id);
   return {
     status: 200,
     message: {

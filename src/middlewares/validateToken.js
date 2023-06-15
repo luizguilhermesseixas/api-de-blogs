@@ -9,6 +9,8 @@ const validateJWT = (req, res, next) => {
 
   const decoded = decodeToken(token);
 
+  req.user = decoded;
+
   if (decoded.status) {
     return res.status(decoded.status).json({ message: decoded.message });
   }
